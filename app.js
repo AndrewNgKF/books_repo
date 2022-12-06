@@ -35,7 +35,7 @@ app.listen(process.env.PORT, () => {
 
 mongoose.set("strictQuery", true);
 mongoose
-  .connect("mongodb://localhost:27017/books_db_dev", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
