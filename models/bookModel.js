@@ -25,18 +25,14 @@ const bookSchema = new mongoose.Schema(
       ],
     },
     genre: {
-      type: String,
-      required: [true, "A book must have a genre"],
+      type: [String],
+      required: [true, "A book must have at least one genre"],
       trim: true,
-      maxlength: [
-        100,
-        "A book genre must have less or equal then 100 characters",
-      ],
     },
     author: {
       type: [String],
       maxItems: 10,
-      required: [true, "A book must have an author"],
+      required: [true, "A book must have at least one author"],
       trim: true,
       maxlength: [
         100,
