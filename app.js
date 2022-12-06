@@ -6,6 +6,7 @@ import helmet from "helmet";
 
 import mainRouter from "./routes/mainRoutes.js";
 import bookRouter from "./routes/bookRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 dotenv.config({ path: ".env" });
 
@@ -36,5 +37,6 @@ app.use("/healthcheck", (req, res) => {
 
 app.use("/", mainRouter);
 app.use("/api/v1/books", bookRouter);
+app.use("/api/v1/users", userRouter);
 
 export default app;
