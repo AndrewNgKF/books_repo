@@ -3,6 +3,7 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
+import mongoose from "mongoose";
 
 dotenv.config({ path: ".env" });
 
@@ -31,5 +32,13 @@ app.use("/healthcheck", (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
+
+mongoose.set("strictQuery", true);
+mongoose
+  .connect("mongodb://localhost:27017/books_db_dev", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("DB connection successful! 🎉"));
 
 export default app;
