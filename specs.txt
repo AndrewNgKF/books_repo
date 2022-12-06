@@ -5,10 +5,13 @@ User Management
     Only accessible to Admin and Editor
     Each user should have Name, Role, and Date Joined attributes
     Only an Admin can add, remove and update users
-    
+
 Book Management
     Accessible to all types of users
     Each book should have Title, Description, Genre, Author, Year Published, Borrowing Availability Status, Last Borrower
     Only Admin and Editor can add, remove and update books
     All users can borrow and return books
     Each book may have multiple copies
+
+Assumptions:
+    Although not specified, each user should have a password 
