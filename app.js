@@ -1,10 +1,17 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
+import morgan from "morgan";
+import helmet from "helmet";
 
 dotenv.config({ path: ".env" });
 
 const app = express();
+app.use(helmet());
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 const limiter = rateLimit({
   max: 100,
