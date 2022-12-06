@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "lint": "npx eslint .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "type": "module",
   "author": "",
@@ -18,5 +21,11 @@
     "helmet": "^6.0.1",
     "mongoose": "^6.8.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.20"
   }
 }
