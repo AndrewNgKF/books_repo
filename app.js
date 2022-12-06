@@ -1,5 +1,8 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env" });
 
 const app = express();
 
@@ -18,8 +21,8 @@ app.use("/healthcheck", (req, res) => {
   res.send("OK");
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`);
 });
 
 export default app;
