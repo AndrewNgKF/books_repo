@@ -4,6 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 import mainRouter from "./routes/mainRoutes.js";
+import bookRouter from "./routes/bookRoutes.js";
 
 const app = express();
 app.use(helmet());
@@ -30,5 +31,6 @@ app.use("/healthcheck", (req, res) => {
 });
 
 app.use("/", mainRouter);
+app.use("/api/v1/books", bookRouter);
 
 export default app;

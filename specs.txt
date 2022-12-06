@@ -14,4 +14,4 @@ Book Management
     Each book may have multiple copies
 
 Assumptions:
-    Although not specified, each user should have a password 
+    Although not specified, each user should have a password
