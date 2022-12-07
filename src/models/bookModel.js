@@ -50,6 +50,12 @@ const bookSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    borrowedAt: {
+      type: Date,
+    },
+    returnedAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

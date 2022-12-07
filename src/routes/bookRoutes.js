@@ -9,4 +9,7 @@ router.post("/", bookController.addBook);
 router.patch("/:id", bookController.editBook);
 router.delete("/:id", bookController.deleteBook);
 
+router.post("/borrow", bookController.borrowBook);
+router.post("/return", bookController.returnBook);
+
 export default router;
