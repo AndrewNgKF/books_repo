@@ -47,9 +47,7 @@ const login = async (req, res) => {
 };
 
 const refresh = (req, res) => {
-  //   const refreshToken = req.headers.cookie.split("=")[1];
   const refreshToken = req.cookies.jwt;
-  console.log(refreshToken);
 
   if (!refreshToken) return res.status(401).json({ message: "Unauthorized" });
 
@@ -76,8 +74,59 @@ const logout = (req, res) => {
   res.status(200).json({ message: "Logged out" });
 };
 
+const isAuthenticated = async (req, res, next) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  const loggedInUser = await User.findOne({
+    name: decoded.UserInfo.name,
+  }).exec();
+
+  if (!loggedInUser) return res.status(401).json({ message: "Unauthorized" });
+
+  req.user = loggedInUser;
+
+  next();
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(401).json({ message: "Admin permissions needed." });
+  }
+  next();
+};
+
+const isEditor = (req, res, next) => {
+  if (req.user.role !== "editor") {
+    return res.status(401).json({ message: "Editor permissions needed." });
+  }
+  next();
+};
+
+const isAdminOrEditor = (req, res, next) => {
+  if (req.user.role !== "admin" && req.user.role !== "editor") {
+    return res
+      .status(401)
+      .json({ message: "Admin or Editor permissions needed." });
+  }
+  next();
+};
+
 export default {
   login,
   refresh,
   logout,
+  isAuthenticated,
+  isAdmin,
+  isEditor,
+  isAdminOrEditor,
 };
