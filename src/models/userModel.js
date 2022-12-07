@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       name: {
         type: String,
         trim: true,
-        unique: true,
+        // unique: true,
         maxlength: [
           30,
           "A user name must have less or equal then 30 characters",
@@ -39,6 +39,14 @@ const userSchema = new mongoose.Schema(
       role: {
         type: String,
         enum: ["admin", "editor", "member"],
+      },
+      pendingDeletion: {
+        type: Boolean,
+        default: false,
+      },
+      pendingRequestMadeBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
       },
     },
     isPendingApproval: {
@@ -55,6 +63,13 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", function (next) {
+  if (this.isModified("pendingChanges.name"))
+    this.pendingChanges.name = this.pendingChanges.name.toLowerCase();
+  if (this.isModified("name")) this.name = this.name.toLowerCase();
+  next();
+});
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();

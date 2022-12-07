@@ -43,7 +43,7 @@ const login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  res.json({ accessToken });
+  res.json({ accessToken, role: foundUser.role });
 };
 
 const refresh = (req, res) => {
@@ -51,14 +51,14 @@ const refresh = (req, res) => {
 
   if (!refreshToken) return res.status(401).json({ message: "Unauthorized" });
 
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Forbidden" });
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Forbidden", err: err });
 
-    const foundUser = User.findOne({ name: user.name }).exec();
+    const foundUser = User.findOne({ name: decoded.name }).exec();
     if (!foundUser) return res.status(401).json({ message: "Unauthorized" });
 
     const accessToken = jwt.sign(
-      { username: user.username },
+      { username: decoded.username },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "7d" }
     );

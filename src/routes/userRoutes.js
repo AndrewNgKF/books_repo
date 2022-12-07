@@ -12,7 +12,8 @@ router.get("/:id", userController.getUser);
 router.use(authController.isAdmin);
 router.post("/", userController.addUser);
 router.patch("/:id", userController.editUser);
-router.delete("/:id", userController.deleteUser);
-router.post("/:id/approve", userController.approveUser);
+router.post("/:id/approve-changes", userController.approveUserChanges);
+router.post("/:id/mark-for-deletion", userController.markUserForDeletion);
+router.delete("/:id/approve-deletion", userController.approveUserDeletion);
 
 export default router;

@@ -1,4 +1,5 @@
 import Book from "../models/bookModel.js";
+import User from "../models/userModel.js";
 
 const getAllBooks = async (req, res) => {
   try {
@@ -97,7 +98,7 @@ const deleteBook = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        book: null,
+        book: "Book has been deleted",
       },
     });
   } catch (err) {
@@ -110,7 +111,9 @@ const deleteBook = async (req, res) => {
 
 const borrowBook = async (req, res) => {
   try {
-    const { user, book } = req.body;
+    const { book } = req.body;
+    const user = await User.findById(req.user.id);
+
     if (!user || !book) {
       return res.status(400).json({
         status: "failed",
@@ -124,13 +127,19 @@ const borrowBook = async (req, res) => {
         message: "No book found with that ID",
       });
     }
-    if (!bookToBorrow.isAvailable && bookToBorrow.lastBorrower.equals(user)) {
+    if (
+      !bookToBorrow.isAvailable &&
+      bookToBorrow.lastBorrower.equals(user.id)
+    ) {
       return res.status(400).json({
         status: "failed",
         message: "You've already borrowed this book",
       });
     }
-    if (!bookToBorrow.isAvailable && !bookToBorrow.lastBorrower.equals(user)) {
+    if (
+      !bookToBorrow.isAvailable &&
+      !bookToBorrow.lastBorrower.equals(user.id)
+    ) {
       return res.status(400).json({
         status: "failed",
         message: "Book is not available",
@@ -175,7 +184,7 @@ const returnBook = async (req, res) => {
         message: "No book found with that ID",
       });
     }
-    bookToReturn.lastBorrower = null;
+
     bookToReturn.isAvailable = true;
     bookToReturn.borrowedAt = null;
     bookToReturn.returnedAt = Date.now();

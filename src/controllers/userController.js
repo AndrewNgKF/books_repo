@@ -24,6 +24,10 @@ const addUser = async (req, res) => {
     const newUser = await User.create({
       ...req.body,
       isPendingApproval: true,
+      pendingChanges: {
+        pendingRequestMadeBy: req.user._id,
+        name: req.body.name,
+      },
     });
     res.status(201).json({
       status: "success",
@@ -70,6 +74,7 @@ const editUser = async (req, res) => {
         pendingChanges: {
           name: req.body.name ? req.body.name : undefined,
           role: req.body.role ? req.body.role : undefined,
+          pendingRequestMadeBy: req.user.id,
         },
         isPendingApproval: true,
       },
@@ -97,10 +102,9 @@ const editUser = async (req, res) => {
   }
 };
 
-const approveUser = async (req, res) => {
+const approveUserChanges = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    console.log("user", user);
 
     if (!user)
       return res.status(404).json({
@@ -114,15 +118,17 @@ const approveUser = async (req, res) => {
         message: "User is not pending approval",
       });
 
+    if (user.pendingChanges.pendingRequestMadeBy.equals(req.user._id))
+      return res.status(400).json({
+        status: "failed",
+        message: "You cannot approve your own changes",
+      });
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
         name: user.pendingChanges.name ? user.pendingChanges.name : user.name,
         role: user.pendingChanges.role ? user.pendingChanges.role : user.role,
-        pendingChanges: {
-          name: undefined,
-          role: undefined,
-        },
         isPendingApproval: false,
         wasApprovedBy: req.user._id,
         approvedDate: Date.now(),
@@ -144,20 +150,65 @@ const approveUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+const markUserForDeletion = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        pendingChanges: {
+          pendingDeletion: true,
+          pendingRequestMadeBy: req.user.id,
+        },
+        isPendingApproval: true,
+      },
+      { new: true, runValidators: true }
+    );
+
     if (!user) {
       return res.status(404).json({
         status: "failed",
         message: "No user found with that ID",
       });
     }
-    res.status(204).json({
+    res.status(200).json({
       status: "success",
-      data: {
-        user: null,
-      },
+      message: "User marked for deletion",
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err,
+    });
+  }
+};
+
+const approveUserDeletion = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user)
+      return res.status(404).json({
+        status: "failed",
+        message: "No user found with that ID",
+      });
+
+    if (!user.pendingChanges.pendingDeletion)
+      return res.status(400).json({
+        status: "failed",
+        message: "User is not pending deletion",
+      });
+
+    if (user.pendingChanges.pendingRequestMadeBy.equals(req.user._id))
+      return res.status(400).json({
+        status: "failed",
+        message: "You cannot approve your own changes",
+      });
+
+    await User.findByIdAndDelete(user._id);
+
+    res.status(200).json({
+      status: "success",
+      message: "User deleted",
     });
   } catch (err) {
     res.status(404).json({
@@ -172,6 +223,7 @@ export default {
   addUser,
   getUser,
   editUser,
-  approveUser,
-  deleteUser,
+  approveUserChanges,
+  markUserForDeletion,
+  approveUserDeletion,
 };
