@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 import morgan from "morgan";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 
 import mainRouter from "./routes/mainRoutes.js";
+import authRouter from "./routes/authRoutes.js";
 import bookRouter from "./routes/bookRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
@@ -15,6 +17,7 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const limiter = rateLimit({
   max: 100,
@@ -36,6 +39,7 @@ app.use("/healthcheck", (req, res) => {
 });
 
 app.use("/", mainRouter);
+app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", bookRouter);
 app.use("/api/v1/users", userRouter);
 
