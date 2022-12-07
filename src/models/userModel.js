@@ -25,6 +25,33 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+    pendingChanges: {
+      name: {
+        type: String,
+        trim: true,
+        unique: true,
+        maxlength: [
+          30,
+          "A user name must have less or equal then 30 characters",
+        ],
+        validate: [validator.isAlphanumeric, "names must be alphanumeric"],
+      },
+      role: {
+        type: String,
+        enum: ["admin", "editor", "member"],
+      },
+    },
+    isPendingApproval: {
+      type: Boolean,
+      default: false,
+    },
+    wasApprovedBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+    approvedDate: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

@@ -60,7 +60,7 @@ const refresh = (req, res) => {
     const accessToken = jwt.sign(
       { username: user.username },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "30m" }
+      { expiresIn: "7d" }
     );
     res.json({ accessToken });
   });
@@ -86,16 +86,19 @@ const isAuthenticated = async (req, res, next) => {
   }
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  const loggedInUser = await User.findOne({
-    name: decoded.UserInfo.name,
-  }).exec();
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Token Expired" });
 
-  if (!loggedInUser) return res.status(401).json({ message: "Unauthorized" });
+    const loggedInUser = await User.findOne({
+      name: decoded.UserInfo.name,
+    }).exec();
 
-  req.user = loggedInUser;
+    if (!loggedInUser) return res.status(401).json({ message: "Unauthorized" });
 
-  next();
+    req.user = loggedInUser;
+
+    next();
+  });
 };
 
 const isAdmin = (req, res, next) => {
