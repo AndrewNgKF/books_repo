@@ -184,6 +184,12 @@ const returnBook = async (req, res) => {
         message: "No book found with that ID",
       });
     }
+    if (bookToReturn.isAvailable) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Book is already marked as returned",
+      });
+    }
 
     bookToReturn.isAvailable = true;
     bookToReturn.borrowedAt = null;
