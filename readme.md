@@ -6,8 +6,7 @@ Codebases should be set up with developer happiness in mind, with code being sim
 
 ```bash
 npm install # installs all dependencies
-npm run seed # seeds the database
-# (please make sure you have mongodb running on localhost:27017)
+npm run seed # seeds the database (Please make sure you have mongodb running on localhost:27017)
 npm run dev # starts the server with nodemon
 npm run lint # runs eslint on the codebase
 ```
@@ -32,7 +31,9 @@ Dotenv # environment variables
 The codebase is organized in a way that makes it easy to understand and maintain. The codebase is split into 3 main folders:
 
 controllers - contains all the controllers
+
 models - all the models
+
 routes - all the routes
 
 Any reusable utils for would have been under the utils folder or a separate package, and tests would have been under the tests folder or alongside the files they test for. eg file.js & file.test.js, this would ensure the project is easy to maintain and extend.
