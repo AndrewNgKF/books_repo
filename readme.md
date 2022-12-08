@@ -1,6 +1,6 @@
 ## Thoughts
 
-Codebases should be set up with developer happiness in mind, with code being simply written, concise and easy to understand.
+Codebases should be set up with developer happiness in mind, with code being written simply, concise and easy to understand.
 
 ## Setup instructions
 
@@ -54,7 +54,8 @@ Eslint is used to lint the codebase, the style is the default eslint:recommended
 
 ## API documentation
 
-The API documentation can be found at https://documenter.getpostman.com/view/490308/2s8YzQW3vN, However imho the best way to understand an api is to read the code and try it, so the API can be tested using the postman collection included in the repo.
+The API documentation can be found at [https://documenter.getpostman.com/view/490308/2s8YzQW3vN](https://documenter.getpostman.com/view/490308/2s8YzQW3vN)
+, However imho the best way to understand an api is to read the code and try it, so the API can be tested using the postman collection included in the repo.
 
 ## API endpoints
 

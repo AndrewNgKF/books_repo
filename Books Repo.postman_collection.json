@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "f36b13b6-06c8-4248-8f0a-24cec39d37a4",
+		"name": "Books Repo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "490308"
+	},
+	"item": [
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdHVzZXIiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY3MDM4NTEzNiwiZXhwIjoxNjcwMzg2OTM2fQ.dBzp8hZ2lKgFup-GuUYoDDBIklo8KFC686aH1QF673Y",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdHVzZXIiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY3MDM4NTEzNiwiZXhwIjoxNjcwMzg2OTM2fQ.dBzp8hZ2lKgFup-GuUYoDDBIklo8KFC686aH1QF673Y",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add A Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"This is my book title\",\n    \"description\": \"This is the description of the book\",\n    \"genre\": [\"art\", \"culture\", \"politics\"],\n    \"author\": [\"mr jones\", \"mrs jones\"],\n    \"yearPublished\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit A Book",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"editing the title *EDIT\",\n    \"description\": \"edited the description\",\n    \"genre\": [\"art\", \"culture\", \"politics\"],\n    \"author\": [\"mr jones\", \"mrs jones\"],\n    \"yearPublished\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/6391a9c103724ab8f8f5667c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"6391a9c103724ab8f8f5667c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete A Book",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/6391abef0dee20dcd3b93fb6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"6391abef0dee20dcd3b93fb6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrow A Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"book\": \"6391a9c103724ab8f8f5667c\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/borrow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"borrow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return A Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"book\": \"6391a9c103724ab8f8f5667c\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/books/return",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"return"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add A User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"SAMPLE3\",\n    \"role\": \"member\",\n    \"password\": \"test1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit A User",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMSIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxMDEyLCJleHAiOjE2NzA0OTI4MTJ9.lJ7C6sU-izMLBKTQ91LUkxUf9FOoDUjE_Xx5sZ5sCV0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"renamed\",\n    \"role\": \"member\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/6391ade00dee20dcd3b93fcf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"6391ade00dee20dcd3b93fcf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark User For Deletion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMiIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxNzMzLCJleHAiOjE2NzA0OTM1MzN9.N5dH39J1VkWG2dF3frHbthTXPa_X2adVPqCGDbnyO4I",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/6391ade00dee20dcd3b93fcf/mark-for-deletion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"6391ade00dee20dcd3b93fcf",
+						"mark-for-deletion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve User Changes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdGFkbWluMiIsInJvbGVzIjoiYWRtaW4ifSwiaWF0IjoxNjcwNDkxNzMzLCJleHAiOjE2NzA0OTM1MzN9.N5dH39J1VkWG2dF3frHbthTXPa_X2adVPqCGDbnyO4I",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/6391ade00dee20dcd3b93fcf/approve-changes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"6391ade00dee20dcd3b93fcf",
+						"approve-changes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve User Deletion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJuYW1lIjoidGVzdHVzZXIiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY3MDQxMDA1NywiZXhwIjoxNjcwNDExODU3fQ.LqbnLyKKbxrmckBf_hwpq0qT6xpS_8DaYjVhaPB_bmg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/6390469cbd8f6c172a70ff85/approve-deletion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"6390469cbd8f6c172a70ff85",
+						"approve-deletion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login A User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"testadmin1\",\n    \"password\": \"test1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh User Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout A User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
